@@ -5,6 +5,8 @@ import loadButtons from './buttons';
 import loadStyle from './style';
 import en from './locale/en';
 
+
+
 const masterPlugin = (editor, opt = {}) => {
   const config = editor.getConfig();
   const opts = {

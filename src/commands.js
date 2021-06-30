@@ -6,7 +6,7 @@ export default (editor, opt = {}) => {
   const cmd = editor.Commands;
   const exportName = opt.overwriteExport ? 'export-template' : 'mjml-export';
 
-  cmd.add('mjml-import', importCommand(editor, opt));
+  //cmd.add('mjml-import', importCommand(editor, opt));
   cmd.add('mjml-import:change', {
     run() {
       const code = editor.getHtml();

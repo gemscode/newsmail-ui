@@ -26,19 +26,19 @@ export default (editor, opt = {}) => {
     }
   });
 
-  let mjmlCode;
   let htmlCode;
 
   return {
 
     buildEditor(label) {
+      const config = editor.getConfig();
       const ecm = editor.CodeManager;
       const cm = ecm.getViewer('CodeMirror').clone();
       const txtarea = document.createElement('textarea');
       const el = document.createElement('div');
       el.style.flex = '1 0 auto';
       el.style.padding = '5px';
-      el.style.maxWidth = '50%';
+      el.style.maxWidth = '100%';
       el.style.boxSizing = 'border-box';
 
       const codeEditor = cm.set({
@@ -51,33 +51,27 @@ export default (editor, opt = {}) => {
       const elEditor = new ecm.EditorView({ model: codeEditor, config }).render().el;
       el.appendChild(elEditor);
       codeEditor.init(txtarea);
+
       return { codeEditor, el };
     },
 
     run(editor, sender = {}) {
       const modal = editor.Modal;
-      modal.setTitle(editor.I18n.t('grapesjs-mjml.panels.export.title'));
+      modal.close();
+
+      modal.setTitle('HTML Code');
       modal.setContent('');
       modal.setContent(container);
 
-      if (!mjmlCode) {
-        const codeViewer = this.buildEditor('MJML');
-        mjmlCode = codeViewer.codeEditor;
-        container.appendChild(codeViewer.el);
-      }
+
       if (!htmlCode) {
-        const codeViewer = this.buildEditor('HTML');
+        const codeViewer = this.buildEditor();
         htmlCode = codeViewer.codeEditor;
         container.appendChild(codeViewer.el);
       }
 
       modal.open();
 
-      if (mjmlCode) {
-        mjmlCode.setContent(opt.preMjml + editor.getHtml() + opt.postMjml);
-        //mjmlCode.editor.setOption('lineWrapping', 1);
-        mjmlCode.editor.refresh();
-      }
 
       if (htmlCode) {
         const mjml = getMjml();

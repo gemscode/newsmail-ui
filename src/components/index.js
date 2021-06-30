@@ -257,7 +257,57 @@ export default (editor, opt = {}) => {
     }
   };
 
+  defaultType.view.extend({
+    events: {
+      click: 'handleClick',
+    },
+    createContent() {
+      const content = document.createElement('div');
+      content.style = 'position: relative';
+      content.innerHTML = `
+                <div class="container"> 
+                  <form>
+                      <div>
+                          <label>URL: </label>
+                           <input type="text" id="url" placeholder="http://test-data/" name="url">
+                      </div>
+                      <div>
+                          <label>Identity: </label>
+                           <input type="text" id="address" placeholder="Enter Identity Address" name="address">
+                      </div>
+                  </form>
+                </div>
+    <button style="
+      position: absolute;
+      top: 0; right: 0;
+      background-color: #fff;
+      font-size: 1rem;
+      border-radius: 3px;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer
+    ">
+         Submit
+    </botton>
+  `;
 
+      return content;
+    },
+    handleClick: function (e) {
+      var modal = editor.Modal;
+      var content = this.createContent()
+      var btn = content.children.length === 2 && content.children[1];
+      btn.addEventListener('click', this.applyChanges)
+      modal.open({
+        title: '<br>Create Identity<br>',
+        content: content
+        ,
+      });
+    },
+    applyChanges() {
+      // DO YOUR AJAX STUFF HERE
+    },
+  });
   // MJML Internal view (for elements inside mj-columns)
   const compOpts = {
     dc, coreMjmlModel, coreMjmlView, opt, sandboxEl, defaultModel, defaultView,
