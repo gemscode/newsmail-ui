@@ -1,5 +1,4 @@
 import tglImagesCommand from './toggleImagesCommand';
-import importCommand from './command-import-mjml';
 import exportCommand from './command-export-mjml';
 
 export default (editor, opt = {}) => {

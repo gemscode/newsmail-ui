@@ -8,8 +8,9 @@
     "lint:fix": "eslint src --fix",
     "v:patch": "npm version patch -m \"Release v%s\"",
     "build": "grapesjs-cli build --patch=false",
-    "start": "grapesjs-cli serve -p 8081"
+    "start": "grapesjs-cli serve -h 0.0.0.0 -p 7821"
   },
+  "proxy": "http://0.0.0.0:7821",
   "files": [
     "/dist",
     "/locale"
@@ -30,7 +31,6 @@
     "mjml-browser": "^4.8.1"
   },
   "devDependencies": {
-    "eslint": "^7.20.0",
     "grapesjs-cli": "^1.0.14"
   }
 }

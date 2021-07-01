@@ -7,9 +7,9 @@ export default (editor, opt = {}) => {
   const optPanel = pnm.getPanel('options');
   const cmdPanel = pnm.getPanel('options');
   const viewsPanel = pnm.getPanel('views');
-  const HOST = "localhost";
-  const PORT = "8081";
-  const API_HOST = "localhost";
+  const HOST = "rp78.zeroxcc.com";
+  const PORT = "7821";
+  const API_HOST = "rp78.zeroxcc.com";
   const API_PORT = "8881";
   const API_PATH_TOPICS = "/api/newsletter/topics";
   const API_PATH_PUBLISH = "/api/newsletter/publish";
@@ -36,7 +36,7 @@ export default (editor, opt = {}) => {
     const commands = editor.Commands;
     commands.add('publish', {
       resPublishNewsletter(msg) {
-        const contentUrl = 'http://' + API_HOST + ':' + API_PORT + API_PATH_CONTENT + '/' + msg;
+        const contentUrl = 'http://' + API_HOST + API_PATH_CONTENT + '/' + msg;
 
         const container = document.createElement('div');
         container.style.display = 'flex';
@@ -78,8 +78,7 @@ export default (editor, opt = {}) => {
           const content = mjmlConvert(mjml, opt.fonts);
           contentHTML = content.html;
 
-          const publishUrl = 'http://' + API_HOST + ':' + API_PORT + API_PATH_PUBLISH + '/' + publisherId + '/topic/' + topicId;
-          //this.reqPublishNewsletter('http://localhost:8881/api/newsletter/publish/'+publisherId+'/topic/'+topicId);
+          const publishUrl = 'http://' + API_HOST + API_PATH_PUBLISH + '/' + publisherId + '/topic/' + topicId;
           this.reqPublishNewsletter(publishUrl);
         }
       }
@@ -235,7 +234,7 @@ export default (editor, opt = {}) => {
         if (appKeyInput == undefined || appKeyInput.value == "Key"  || appKeyInput.value === "")
           verifyMessage.innerHTML = "A valid application key is required.";
         else
-          this.reqCheckPublisherKey('http://'+API_HOST+':'+API_PORT+'/api/newsletter/publisher/'+appKeyInput.value);
+          this.reqCheckPublisherKey('http://' + API_HOST + '/api/newsletter/publisher/' + appKeyInput.value);
       };
 
       appKeyInput.onfocus = () => {
